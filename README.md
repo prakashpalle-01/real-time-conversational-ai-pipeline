@@ -1,36 +1,27 @@
 # Real-Time Conversational AI Pipeline
 
-A production-oriented scaffold for a streaming conversational AI system that can ingest live audio, run speech-to-text, orchestrate LLM responses, and emit text or speech back to the client.
+A FastAPI service for real-time conversational sessions. The project simulates a streaming voice pipeline with session state, transcript handling, response generation, and room for speech-to-text, LLM, and text-to-speech adapters.
 
-## What is included
+## What it does
 
-- FastAPI app entrypoint
-- WebSocket endpoint for streaming sessions
-- Health check endpoint
-- Test scaffold
-- Dockerfile for containerized deployment
-- Packaging metadata for a Python service
+- Accepts streaming audio or text messages over WebSocket
+- Maintains per-session conversation state
+- Produces assistant responses and transcript summaries
+- Exposes a health endpoint and session lookup endpoint
+- Ships with smoke tests and container-ready packaging
 
-## Intended architecture
+## API
 
-- Client streams audio over WebSocket
-- Speech is transcribed with Whisper or a compatible STT backend
-- A conversation orchestrator manages context, safety checks, and response generation
-- Responses are returned as text and optionally synthesized to speech
-- Kafka or another streaming bus can be added later for event fanout and buffering
+- `GET /health` - service readiness
+- `POST /sessions` - create a conversation session
+- `GET /sessions/{session_id}` - inspect session state
+- `WS /ws/conversation` - stream conversation turns
 
 ## Run locally
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e .
+pip install -e .[test]
 uvicorn src.main:app --reload
 ```
-
-## Next steps
-
-- Add a real Whisper adapter
-- Add an LLM provider adapter
-- Add TTS output support
-- Add streaming persistence and observability

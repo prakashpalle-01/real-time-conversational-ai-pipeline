@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "real-time-conversational-ai-pipeline"
 version = "0.1.0"
-description = "A real-time conversational AI pipeline scaffold with WebSocket streaming"
+description = "A real-time conversational AI pipeline with WebSocket streaming and session state"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
